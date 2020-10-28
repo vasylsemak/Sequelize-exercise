@@ -22,18 +22,32 @@ const Task = db.define('Task', {
   due: Sequelize.DATE
 });
 
+
+// Class methods
 Task.clearCompleted = async function() {
-  await Task.destroy({ where: { complete: true }});
+  await this.destroy({ where: { complete: true }});
 }
 
 Task.completeAll = async function() {
-  const updated = await Task.update(
+  const updated = await this.update(
     { complete: true },
     {
       where: { complete: false },
       returning: true
     });
-    return updated;
+  return updated;
+}
+
+
+// Instance methods
+Task.prototype.getTimeRemaining = function() {
+  if (!this.due) return Infinity;
+  else return this.due - new Date();
+}
+
+Task.prototype.isOverdue = function() {
+  if(this.complete) return false;
+  return this.due - new Date() < 0 ? true : false;
 }
 
 

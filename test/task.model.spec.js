@@ -69,12 +69,12 @@ describe('Task', function () {
 
     describe('getTimeRemaining', function () {
 
-      xit('returns the Infinity value if task has no due date', function () {
+      it('returns the Infinity value if task has no due date', function () {
         const task = Task.build();
         expect(task.getTimeRemaining()).to.equal(Infinity);
       });
 
-      xit('returns the difference between due date and now', function () {
+      it('returns the difference between due date and now', function () {
         const oneDay = 24 * 60 * 60 * 1000; // one day in milliseconds
 
         // create a task due one day from this point in time
@@ -89,14 +89,14 @@ describe('Task', function () {
 
     describe('isOverdue', function () {
 
-      xit('is overdue if the due date is in the past', function () {
+      it('is overdue if the due date is in the past', function () {
         const task = Task.build({
           due: helper.dates.yesterday()
         });
         expect(task.isOverdue()).to.be.true;
       });
 
-      xit('is not overdue if the due date is in the past but complete is true', function () {
+      it('is not overdue if the due date is in the past but complete is true', function () {
         const task = Task.build({
           due: helper.dates.yesterday(),
           complete: true
@@ -104,7 +104,7 @@ describe('Task', function () {
         expect(task.isOverdue()).to.be.false;
       });
 
-      xit('is not overdue if the due date is in the future', function () {
+      it('is not overdue if the due date is in the future', function () {
         const task = Task.build({
           due: helper.dates.tomorrow()
         });
