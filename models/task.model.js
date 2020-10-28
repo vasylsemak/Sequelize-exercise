@@ -1,7 +1,7 @@
 'use strict';
 
 const db = require('./database');
-const Sequelize = require('sequelize');
+const Sequelize= require('sequelize');
 
 // Make sure you have `postgres` running!
 
@@ -24,18 +24,17 @@ const Task = db.define('Task', {
 
 
 // Class methods
-Task.clearCompleted = async function() {
-  await this.destroy({ where: { complete: true }});
+Task.clearCompleted = function() {
+  return this.destroy({ where: { complete: true }});
 }
 
-Task.completeAll = async function() {
-  const updated = await this.update(
+Task.completeAll = function() {
+  return this.update(
     { complete: true },
     {
       where: { complete: false },
       returning: true
     });
-  return updated;
 }
 
 
@@ -56,6 +55,21 @@ Task.prototype.addChild = function(childObj) {
     parentId: this.id,
   }
   return Task.create(newChild);
+}
+
+Task.prototype.getChildren = function() {
+  return Task.findAll({ where: { parentId : this.id } });
+}
+
+Task.prototype.getSiblings  = function() {
+  return Task.findAll({
+    where: {
+      parentId: this.parentId,
+      id: {
+        [ Sequelize.Op.ne ]: this.id
+      }
+    }
+  })
 }
 
 

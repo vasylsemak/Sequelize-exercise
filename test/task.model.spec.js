@@ -114,7 +114,7 @@ describe('Task', function () {
 
     describe('addChild', function () {
 
-      xit('should return a promise for the new child', async function () {
+      it('should return a promise for the new child', async function () {
         const parentTask = await Task.create({ name: 'parent task' });
         const childTask = await parentTask.addChild({ name: 'child task' });
         expect(childTask.name).to.equal('child task');
@@ -125,7 +125,7 @@ describe('Task', function () {
 
     describe('getChildren', function () {
 
-      xit('should return a promise for an array of the task\'s children', async function () {
+      it('should return a promise for an array of the task\'s children', async function () {
         const parentTask = await Task.create({ name: 'parent task' });
         await parentTask.addChild({ name: 'child task' });
         await parentTask.addChild({ name: 'child task 2' });
@@ -140,7 +140,7 @@ describe('Task', function () {
 
     describe('getSiblings', function () {
 
-      xit('returns a promise for an array of siblings', async function () {
+      it('returns a promise for an array of siblings', async function () {
         const parentTask = await Task.create({ name: 'parent task' });
         const firstChild = await parentTask.addChild({ name: 'first child' });
         const secondChild = await parentTask.addChild({ name: 'second child' });
