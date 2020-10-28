@@ -50,6 +50,14 @@ Task.prototype.isOverdue = function() {
   return this.due - new Date() < 0 ? true : false;
 }
 
+Task.prototype.addChild = function(childObj) {
+  const newChild = {
+    name: childObj.name,
+    parentId: this.id,
+  }
+  return Task.create(newChild);
+}
+
 
 Task.belongsTo(Task, {as: 'parent'});
 
