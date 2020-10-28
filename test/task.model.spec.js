@@ -38,7 +38,7 @@ describe('Task', function () {
     });
 
     describe('clearCompleted', function () {
-      xit('removes all completed tasks from the database', async function () {
+      it('removes all completed tasks from the database', async function () {
         await Task.clearCompleted();
 
         const completedTasks = await Task.findAll({ where: { complete: true } });
@@ -51,7 +51,7 @@ describe('Task', function () {
 
     describe('completeAll', function () {
 
-      xit('marks all incomplete tasks as completed', async function () {
+      it('marks all incomplete tasks as completed', async function () {
         await Task.completeAll();
 
         const completedTasks = await Task.findAll({ where: { complete: true } });

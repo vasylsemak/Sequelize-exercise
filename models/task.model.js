@@ -22,6 +22,19 @@ const Task = db.define('Task', {
   due: Sequelize.DATE
 });
 
+Task.clearCompleted = async function() {
+  await Task.destroy({ where: { complete: true }});
+}
+
+Task.completeAll = async function() {
+  const updated = await Task.update(
+    { complete: true },
+    {
+      where: { complete: false },
+      returning: true
+    });
+    return updated;
+}
 
 
 Task.belongsTo(Task, {as: 'parent'});
